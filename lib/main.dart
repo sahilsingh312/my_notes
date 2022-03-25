@@ -20,6 +20,7 @@ void main() {
       loginRoute: (context) => const LoginView(),
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const MyNotes(),
+      verifyEmailRoute: (context) => const VerifyEmail(),
     },
   ));
 }
@@ -87,7 +88,7 @@ class _MyNotesState extends State<MyNotes> {
                   if (await showLogOutDIalog(context) == true) {
                     FirebaseAuth.instance.signOut();
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (route) => false);
+                        .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   }
 
                   break;
@@ -116,10 +117,6 @@ Future<bool> showLogOutDIalog(BuildContext context) {
       title: const Text('Log Out'),
       content: const Text('Are you sure you want to log out?'),
       actions: [
-        TextButton(
-          child: const Text('Cancel'),
-          onPressed: () => Navigator.of(context).pop(false),
-        ),
         TextButton(
           child: const Text('Log Out'),
           onPressed: () => Navigator.of(context).pop(true),
